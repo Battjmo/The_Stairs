@@ -1,0 +1,24 @@
+{
+  "name": "The_Stairs",
+  "version": "1.0.0",
+  "description": "## Summary",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Battjmo/The_Stairs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Battjmo/The_Stairs/issues"
+  },
+  "homepage": "https://github.com/Battjmo/The_Stairs#readme",
+  "devDependencies": {
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}
