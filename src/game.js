@@ -1,3 +1,5 @@
+import Player from './player';
+
 class Game {
     constructor(context) {
         this.context = context;
@@ -75,7 +77,6 @@ class Game {
         } 
         if (this.playerMoveRight && this.playerX < this.canvasWidth - 10) {
             this.playerX += this.playerSpeed;
-            console.log(this.playerX);
         }
         if (this.playerMoveUp && this.playerY > 0) {
             this.playerY -= this.playerSpeed;
@@ -94,6 +95,7 @@ class Game {
     }
 
     play() {
+        const nigel = new Player();
         this.bindKeys();
         this.draw();
     }
