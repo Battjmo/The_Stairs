@@ -5,7 +5,7 @@ class Game {
         this.context = context;
         this.canvasHeight = 700;
         this.canvasWidth = 900;
-        this.nigel = new Player(this);
+        this.player = new Player(this, "Nigel");
     }
 
     //THANK DAVID WELLS (NOT THE FAMOUS YANKEE PRESUMABLY)
@@ -15,14 +15,15 @@ class Game {
 
     draw() {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.nigel.movePlayer();
-        this.nigel.drawPlayer();
+        this.player.movePlayer();
+        this.player.drawPlayer();
         requestAnimationFrame(this.draw.bind(this));
     }
 
     play() {
         window.addEventListener("scroll", this.noScroll.bind(this));
-        this.nigel.bindKeys();
+        this.player.bindKeys();
+        console.log(this.player)
         this.draw();
     }
 }

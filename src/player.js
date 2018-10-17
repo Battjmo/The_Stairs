@@ -1,10 +1,12 @@
 class Player {
-    constructor(game) {
+    constructor(game, name) {
 
-        // //context
-        //Self
+        //context
         this.game = game;
         this.context = game.context;
+
+        //Self
+        this.name = name;
         this.playerSize = 10;
         this.playerX = this.game.canvasHeight / 2;
         this.playerY = this.game.canvasHeight / 2;
