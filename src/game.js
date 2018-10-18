@@ -1,4 +1,5 @@
 import Player from './player';
+import Level from './levels/level';
 
 class Game {
     constructor(context) {
@@ -6,6 +7,7 @@ class Game {
         this.canvasHeight = 700;
         this.canvasWidth = 900;
         this.player = new Player(this, "Nigel");
+        this.level = new Level(this.context);
     }
 
     //THANK DAVID WELLS (NOT THE FAMOUS YANKEE PRESUMABLY)
@@ -15,6 +17,7 @@ class Game {
 
     draw() {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.level.drawLevel();
         this.player.movePlayer();
         this.player.drawPlayer();
         requestAnimationFrame(this.draw.bind(this));
@@ -23,7 +26,6 @@ class Game {
     play() {
         window.addEventListener("scroll", this.noScroll.bind(this));
         this.player.bindKeys();
-        console.log(this.player)
         this.draw();
     }
 }

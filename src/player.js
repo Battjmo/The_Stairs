@@ -8,7 +8,7 @@ class Player {
         //Self
         this.name = name;
         this.playerSize = 10;
-        this.playerX = this.game.canvasHeight / 2;
+        this.playerX = this.game.canvasWidth / 2;
         this.playerY = this.game.canvasHeight / 2;
         this.playerSpeed = 10;
 
