@@ -19,39 +19,34 @@ class Level {
             this.context.rect(this.path[i][0], this.path[i][1], this.pathSize, this.pathSize);
             this.context.fillStyle = "#e83030";
             this.context.fill();
-        }
+        } 
     }
 
-    //shuffles all moves
+    //shuffles moves w/ Fisher-Yates shuffle algo
     shuffle(moves) {
         for (let i = moves.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [moves[i], moves[j]] = [moves[j], moves[i]];
         }
-        console.log(moves);
         return moves;
     }
 
     pathGenerator() {
         let path = [this.pathStart];
         console.log(this.pathX, this.pathY, this.xBound, this.yBound);
-        while (this.pathX < this.xBound && this.pathX > 0 && this.pathY > 0 && this.pathY < this.yBound) {
-            console.log("outer loop");
+        while (this.pathX < this.xBound || this.pathY < this.yBound) {
             let shuffledMoves = this.shuffle(this.moves);
-            let moved = false;
-            let currentMove;
-            for (let i = 0; moved === false; i++) {
-                console.log("inner loop");
-                currentMove = shuffledMoves[i];
-                if (this.validPath(path, currentMove)) {
-                    console.log("valid path");
-                    moved = true;
-                    path.push([path[path.length - 1][0] + currentMove[0], currentMove[1], this.pathSize, this.pathSize]);
-                    this.pathX += currentMove[0];
-                    this.pathY += currentMove[1];
+            for (let index = 0; index < shuffledMoves.length; index++) {
+                if ((path[path.length - 1][0] - shuffledMoves[0]) < 0 || (path[path.length - 1][1] - shuffledMoves[1]) < 0) {
+                    shuffledMoves = shuffledMoves.splice(index, 1);
                 }
             }
-        }
+            let currentMove;
+            currentMove = shuffledMoves[0];
+            path.push([path[path.length - 1][0] + currentMove[0], path[path.length - 1][1] + currentMove[1], this.pathSize, this.pathSize]);
+            this.pathX += currentMove[0];
+            this.pathY += currentMove[1];
+            }
         console.log(path);
         return path;
     }
@@ -59,23 +54,22 @@ class Level {
     //old path checker
     //this.path[this.path.length - 1][0], this.path[this.path.length - 1][1]
 
-    validPath(path, currentMove) {
+    // validPath(path, currentMove) {
 
-        for (let i = path.length - 4; i < path.length - 1; i++) {
-            if (path[i]) {
-                for (let j = 0; j < 2; j++) {
-                    console.log(path[i][j]);
-                    if (path[i][j] === currentMove[j]) {
-                        console.log("invalid move");
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
+        // for (let i = path.length - 4; i < path.length - 1; i++) {
+        //     if (path[i]) {
+        //         for (let j = 0; j < 2; j++) {
+        //             console.log(path[i][j]);
+        //             if (path[i][j] === currentMove[j]) {
+        //                 console.log("invalid move");
+        //                 return false;
+        //             }
+        //         }
+        //     }
+        // }
+        // return true;
     }
     
     //END OF CLASS
-}
 
 export default Level;
