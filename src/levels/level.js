@@ -9,7 +9,7 @@ class Level {
         this.pathX = this.pathSize;
         this.pathY = this.pathSize;
         this.pathStart = [0, 0, this.pathSize, this.pathSize];
-        this.moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
+        this.shuffle = this.shuffle.bind(this);
         this.path = this.pathGenerator();
     }
 
@@ -24,30 +24,28 @@ class Level {
 
     //shuffles moves w/ Fisher-Yates shuffle algo
     shuffle(moves) {
-        for (let i = moves.length - 1; i > 0; i--) {
+        let newMoves = moves.slice();
+        for (let i = moves.length - 1; i >= 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [moves[i], moves[j]] = [moves[j], moves[i]];
+            [newMoves[i], newMoves[j]] = [newMoves[j], newMoves[i]];
         }
-        return moves;
+        return newMoves;
     }
 
     pathGenerator() {
         let path = [this.pathStart];
-        console.log(this.pathX, this.pathY, this.xBound, this.yBound);
-        while (this.pathX < this.xBound || this.pathY < this.yBound) {
-            let shuffledMoves = this.shuffle(this.moves);
+        let moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
+        while (path[path.length - 1][0] + 100 < this.xBound || path[path.length - 1][1] + 100 < this.yBound) {
+            let shuffledMoves = this.shuffle(moves);
             for (let index = 0; index < shuffledMoves.length; index++) {
-                if ((path[path.length - 1][0] - shuffledMoves[0]) < 0 || (path[path.length - 1][1] - shuffledMoves[1]) < 0) {
+                if ((path[path.length - 1][0] - shuffledMoves[index][0]) < 0 || (path[path.length - 1][1] - shuffledMoves[index][1]) < 0) {
                     shuffledMoves = shuffledMoves.splice(index, 1);
                 }
+            } 
+            console.log(path[path.length - 1][0]);
+            let currentMove = [path[path.length - 1][0] + shuffledMoves[0][0], path[path.length - 1][1] + shuffledMoves[0][1], this.pathSize, this.pathSize];
+            path.push(currentMove);
             }
-            let currentMove;
-            currentMove = shuffledMoves[0];
-            path.push([path[path.length - 1][0] + currentMove[0], path[path.length - 1][1] + currentMove[1], this.pathSize, this.pathSize]);
-            this.pathX += currentMove[0];
-            this.pathY += currentMove[1];
-            }
-        console.log(path);
         return path;
     }
 
@@ -55,20 +53,20 @@ class Level {
     //this.path[this.path.length - 1][0], this.path[this.path.length - 1][1]
 
     // validPath(path, currentMove) {
-
-        // for (let i = path.length - 4; i < path.length - 1; i++) {
-        //     if (path[i]) {
-        //         for (let j = 0; j < 2; j++) {
-        //             console.log(path[i][j]);
-        //             if (path[i][j] === currentMove[j]) {
-        //                 console.log("invalid move");
-        //                 return false;
-        //             }
-        //         }
-        //     }
-        // }
-        // return true;
-    }
+    //     for (let i = path.length - 4; i < path.length - 1; i++) {
+    //         if (path[i]) {
+    //             for (let j = 0; j < 2; j++) {
+    //                 console.log(path[i][j]);
+    //                 if (path[i][j] === currentMove[j]) {
+    //                     console.log("invalid move");
+    //                     return false;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return true;
+    // }
+}
     
     //END OF CLASS
 
