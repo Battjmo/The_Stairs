@@ -37,22 +37,43 @@ class Level {
         let moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
         while (path[path.length - 1][0] + 100 < this.xBound || path[path.length - 1][1] + 100 < this.yBound) {
             let shuffledMoves = this.shuffle(moves);
+            let currentMove = this.validPath(path, shuffledMoves);
             for (let index = 0; index < shuffledMoves.length; index++) {
                 if ((path[path.length - 1][0] - shuffledMoves[index][0]) < 0 || (path[path.length - 1][1] - shuffledMoves[index][1]) < 0) {
                     shuffledMoves = shuffledMoves.splice(index, 1);
                 }
             } 
-            console.log(path[path.length - 1][0]);
-            let currentMove = [path[path.length - 1][0] + shuffledMoves[0][0], path[path.length - 1][1] + shuffledMoves[0][1], this.pathSize, this.pathSize];
+            currentMove = [path[path.length - 1][0] + shuffledMoves[0][0], path[path.length - 1][1] + shuffledMoves[0][1], this.pathSize, this.pathSize];
             path.push(currentMove);
             }
         return path;
     }
 
-    //old path checker
-    //this.path[this.path.length - 1][0], this.path[this.path.length - 1][1]
+    validPath(path, shuffledMoves) {
+        // remove out of bounds 
+        let workingMoves = shuffledMoves.slice();
+        let currentMoveIndex = 0;
+        for (let index = 0; index < workingMoves.length; index++) {
+            if ((path[path.length - 1][0] - workingMoves[index][0]) < 0 || (path[path.length - 1][1] - workingMoves[index][1]) < 0) {
+                workingMoves.splice(index, 1);
+            }
+        } 
+        let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1], this.pathSize, this.pathSize];
 
-    // validPath(path, currentMove) {
+        for (let j = 0; j < path.length; j++) {
+            for (let k = 0; k < 2; k++) {
+                // console.log("path: ", path);
+                // console.log(currentMove);
+                if (path[j][0] === currentMove[0] && path[j][1] === currentMove[1]) {
+                    // console.log("in here");
+                    currentMoveIndex++;
+                    // console.log(workingMoves);
+                    currentMove = [path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1], this.pathSize, this.pathSize];
+                }
+            }
+        }
+        return currentMove;
+    }
     //     for (let i = path.length - 4; i < path.length - 1; i++) {
     //         if (path[i]) {
     //             for (let j = 0; j < 2; j++) {
@@ -65,7 +86,8 @@ class Level {
     //         }
     //     }
     //     return true;
-    // }
+
+    
 }
     
     //END OF CLASS
