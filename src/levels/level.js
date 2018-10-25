@@ -9,7 +9,7 @@ class Level {
         this.pathX = this.pathSize;
         this.pathY = this.pathSize;
         this.pathStart = [0, 0, this.pathSize, this.pathSize];
-        this.moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
+        this.shuffle = this.shuffle.bind(this);
         this.path = this.pathGenerator();
     }
 
@@ -19,63 +19,55 @@ class Level {
             this.context.rect(this.path[i][0], this.path[i][1], this.pathSize, this.pathSize);
             this.context.fillStyle = "#e83030";
             this.context.fill();
-        }
+        } 
     }
 
-    //shuffles all moves
+    //shuffles moves w/ Fisher-Yates shuffle algo
     shuffle(moves) {
-        for (let i = moves.length - 1; i > 0; i--) {
+        let newMoves = moves.slice();
+        for (let i = moves.length - 1; i >= 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [moves[i], moves[j]] = [moves[j], moves[i]];
+            [newMoves[i], newMoves[j]] = [newMoves[j], newMoves[i]];
         }
-        console.log(moves);
-        return moves;
+        return newMoves;
     }
 
     pathGenerator() {
         let path = [this.pathStart];
-        console.log(this.pathX, this.pathY, this.xBound, this.yBound);
-        while (this.pathX < this.xBound && this.pathX > 0 && this.pathY > 0 && this.pathY < this.yBound) {
-            console.log("outer loop");
-            let shuffledMoves = this.shuffle(this.moves);
-            let moved = false;
-            let currentMove;
-            for (let i = 0; moved === false; i++) {
-                console.log("inner loop");
-                currentMove = shuffledMoves[i];
-                if (this.validPath(path, currentMove)) {
-                    console.log("valid path");
-                    moved = true;
-                    path.push([path[path.length - 1][0] + currentMove[0], currentMove[1], this.pathSize, this.pathSize]);
-                    this.pathX += currentMove[0];
-                    this.pathY += currentMove[1];
+        let moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
+        while (path[path.length - 1][0] + 100 < this.xBound || path[path.length - 1][1] + 100 < this.yBound) {
+            let shuffledMoves = this.shuffle(moves);
+            for (let index = 0; index < shuffledMoves.length; index++) {
+                if ((path[path.length - 1][0] - shuffledMoves[index][0]) < 0 || (path[path.length - 1][1] - shuffledMoves[index][1]) < 0) {
+                    shuffledMoves = shuffledMoves.splice(index, 1);
                 }
+            } 
+            console.log(path[path.length - 1][0]);
+            let currentMove = [path[path.length - 1][0] + shuffledMoves[0][0], path[path.length - 1][1] + shuffledMoves[0][1], this.pathSize, this.pathSize];
+            path.push(currentMove);
             }
-        }
-        console.log(path);
         return path;
     }
 
     //old path checker
     //this.path[this.path.length - 1][0], this.path[this.path.length - 1][1]
 
-    validPath(path, currentMove) {
-
-        for (let i = path.length - 4; i < path.length - 1; i++) {
-            if (path[i]) {
-                for (let j = 0; j < 2; j++) {
-                    console.log(path[i][j]);
-                    if (path[i][j] === currentMove[j]) {
-                        console.log("invalid move");
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
+    // validPath(path, currentMove) {
+    //     for (let i = path.length - 4; i < path.length - 1; i++) {
+    //         if (path[i]) {
+    //             for (let j = 0; j < 2; j++) {
+    //                 console.log(path[i][j]);
+    //                 if (path[i][j] === currentMove[j]) {
+    //                     console.log("invalid move");
+    //                     return false;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return true;
+    // }
+}
     
     //END OF CLASS
-}
 
 export default Level;
