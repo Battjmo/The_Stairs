@@ -1,5 +1,4 @@
 import Util from '../util';
-import { runInThisContext } from 'vm';
 
 class Level {
     constructor(context) {
@@ -9,7 +8,7 @@ class Level {
         this.pathSize = 100;
         this.pathX = this.pathSize;
         this.pathY = this.pathSize;
-        this.pathStart = [0, 0, this.pathSize, this.pathSize];
+        this.pathStart = [0, 0];
         this.shuffle = this.shuffle.bind(this);
         this.validPath = this.validPath.bind(this);
         this.path = this.pathGenerator();
@@ -36,10 +35,10 @@ class Level {
 
     pathGenerator() {
         let path = [this.pathStart];
-        //tying with no negative paths
-        // , [-this.pathSize, 0], [0, -this.pathSize]
-        let moves = [[0, this.pathSize], [this.pathSize, 0]];
-        while (path[path.length - 1][0] + 100 < this.xBound || path[path.length - 1][1] + 100 < this.yBound) {
+        // , 
+        let moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
+        while (path[path.length - 1][0] + 100 < this.xBound || path[path.length - 1][1] + 100 < this.yBound ||
+            path[path.length - 1][0] <= 0 || path[path.length - 1][1] <= 0) {
             let shuffledMoves = this.shuffle(moves);
             let currentMove = this.validPath(path, shuffledMoves);
             path.push(currentMove);
@@ -58,7 +57,7 @@ class Level {
         } 
         console.log("working moves: ", workingMoves);
         //check for path collision
-        let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1], this.pathSize, this.pathSize];
+        let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1]];
         for (let j = 0; j < path.length; j++) {
                 console.log("path: ", path);
                 console.log("currentMove: ", currentMove);
@@ -66,8 +65,8 @@ class Level {
                     console.log("in here");
                     console.log(currentMoveIndex);
                     currentMoveIndex++;
-                    console.log(path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1]);
-                    currentMove = [path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1], this.pathSize, this.pathSize];
+                    console.log(workingMoves[currentMoveIndex]);
+                    currentMove = [path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1]];
                 }
             }
         return currentMove;
