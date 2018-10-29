@@ -8,8 +8,8 @@ class Player {
         //Self
         this.name = name;
         this.playerSize = 10;
-        this.playerX = this.game.canvasWidth / 2;
-        this.playerY = this.game.canvasHeight / 2;
+        this.playerX = 0;
+        this.playerY = 0;
         this.playerSpeed = 10;
 
         //Keys
@@ -22,7 +22,7 @@ class Player {
     drawPlayer() {
         this.context.beginPath();
         this.context.rect(this.playerX, this.playerY, this.playerSize, this.playerSize);
-        this.context.fillStyle = "#e83030";
+        this.context.fillStyle = "#e1e1e1";
         this.context.fill();
     }
 
