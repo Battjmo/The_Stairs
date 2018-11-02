@@ -39,6 +39,7 @@ class Level {
         console.log(path[path.length - 1][0] + 100);
         while (path[path.length - 1][0] + 100 < this.xBound && path[path.length - 1][1] + 100 < this.yBound) {
             let shuffledMoves = this.shuffle(moves);
+            console.log(path);
             let currentMove = this.validMove(path, shuffledMoves);
             path = path.slice();
             path.push(currentMove);
@@ -50,12 +51,21 @@ class Level {
     validMove(path, shuffledMoves) {
         // remove out of bounds 
         let workingMoves = shuffledMoves.slice();
+        // workingMoves.forEach((element) => {
+        //     console.log(element);
+        // });
         let currentMoveIndex = 0;
-        for (let index = 0; index < workingMoves.length; index++) {
-            if ((path[path.length - 1][0] + workingMoves[index][0]) < 0 || (path[path.length - 1][1] + workingMoves[index][1]) < 0) {
-                workingMoves.splice(index, 1);
+        // for (let index = 0; index < workingMoves.length; index++) {
+        //     console.log(path[path.length - 1][0] + workingMoves[index][0], path[path.length - 1][1] + workingMoves[index][1])
+            // if ((path[path.length - 1][0] + workingMoves[index][0]) < 0 || (path[path.length - 1][1] + workingMoves[index][1]) < 0) {
+            //     workingMoves.splice(index, 1);
+            // }
+        // } 
+        workingMoves.forEach((element) => {
+            if ((path[path.length - 1][0] + element[0]) < 0 || (path[path.length - 1][1] + element[1]) < 0) {
+                workingMoves.splice(workingMoves.indexOf(element), 1);
             }
-        } 
+        });
         console.log("working moves: ", workingMoves);
         //check for path collision
         let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1]];

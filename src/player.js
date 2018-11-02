@@ -65,6 +65,7 @@ class Player {
     movePlayer() {
         if (this.playerMoveLeft && this.playerX > 0) {
             this.playerX -= this.playerSpeed;
+            console.log(this.onPath())
         }
         if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10) {
             this.playerX += this.playerSpeed;
@@ -75,6 +76,27 @@ class Player {
         if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10) {
             this.playerY += this.playerSpeed;
         }
+    }
+
+    trim(str) {
+    return str.replace(/^\s+|\s+$/gm, '');
+}
+
+    rgbaToHex(rgba) {
+    var parts = rgba.substring(rgba.indexOf("(")).split(","),
+        r = parseInt(this.trim(parts[0].substring(1)), 10),
+        g = parseInt(this.trim(parts[1]), 10),
+        b = parseInt(this.trim(parts[2]), 10);
+
+        return ('#' + r.toString(16) + g.toString(16) + b.toString(16));
+}
+
+    onPath() {
+        let imageData = this.context.getImageData(this.playerX, this.playerY, this.playerSize, this.playerSize);
+        let currentColor = imageData.data.slice(0, 3);
+        currentColor = this.rgbaToHex(currentColor.join(", "));
+        if (currentColor == "e1e1e1") return true;
+        return false;
     }
 }
 
