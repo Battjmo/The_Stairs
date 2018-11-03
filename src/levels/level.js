@@ -81,9 +81,7 @@ class Level {
         }
     }
 
-    
+// END OF CLASS
 }
-    
-    //END OF CLASS
 
 export default Level;

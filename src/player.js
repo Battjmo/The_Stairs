@@ -77,19 +77,6 @@ class Player {
         }
     }
 
-    trim(str) {
-    return str.replace(/^\s+|\s+$/gm, '');
-}
-
-    rgbaToHex(rgba) {
-    var parts = rgba.substring(rgba.indexOf("(")).split(","),
-        r = parseInt(this.trim(parts[0].substring(1)), 10),
-        g = parseInt(this.trim(parts[1]), 10),
-        b = parseInt(this.trim(parts[2]), 10);
-
-        return ('#' + r.toString(16) + g.toString(16) + b.toString(16));
-}
-
     colorCheck(playerColor) {
         if (playerColor !== "224,11,64") return false;
         return true;
@@ -97,7 +84,6 @@ class Player {
 
     canMoveEast() {
         let eastMove = this.context.getImageData(this.playerX + 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
-        console.log(eastMove);
         return this.colorCheck(eastMove);
     }
 
@@ -115,21 +101,8 @@ class Player {
         let northMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
         return this.colorCheck(northMove);
     }
-    onPath() {
-        let bottomMove = this.context.getImageData(this.playerX, this.playerY + 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
-        let leftMove = this.context.getImageData(this.playerX - 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
-        let topMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
-        console.log(rightMove);
-        console.log(leftMove);
-        let moves = [rightMove, bottomMove, leftMove, topMove];
-        for(let i = 0; i < moves.length; i++) {
-            if (moves[i] === "224,11,64" || moves[i] === "0,0,0") {
-                return false;
-            }
-        }
-        // if (currentColor.join(", ") === "224, 11, 64") return true;
-        return true;
-    }
+
+// END OF CLASS
 }
 
 export default Player;

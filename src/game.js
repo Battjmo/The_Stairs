@@ -49,8 +49,8 @@ class Game {
         this.player.bindKeys();
         this.draw();
     }
+
+// END OF CLASS
 }
-
-
 
 export default Game;
