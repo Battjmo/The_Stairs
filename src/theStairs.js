@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const context = gameCanvas.getContext("2d");
     const currentGame = new Game(context);
     gameCanvas.height = currentGame.canvasHeight;
-    gameCanvas.width = currentGame.canvasWidth;
+    gameCanvas.width = currentGame.canvasWidth;    
     currentGame.play();
 });
 
