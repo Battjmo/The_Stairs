@@ -1,14 +1,14 @@
 import Util from '../util';
 
 class Level {
-    constructor(context) {
+    constructor(context, startX = 0, startY = 0) {
         this.context = context;
         this.xBound = 900;
         this.yBound = 700;
         this.pathSize = 100;
         this.pathX = this.pathSize;
         this.pathY = this.pathSize;
-        this.pathStart = [0, 0];
+        this.pathStart = [startX, startY];
         this.shuffle = this.shuffle.bind(this);
         // this.validPath = this.validPath.bind(this);
         this.path = this.pathGenerator();
