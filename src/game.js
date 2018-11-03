@@ -17,10 +17,8 @@ class Game {
 
     draw() {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.context.fillStyle='blue';
+        this.context.fillStyle = 'blue';
         this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-        
-        
         this.level.drawLevel();
         this.player.movePlayer();
         this.player.drawPlayer();
@@ -51,8 +49,8 @@ class Game {
         this.player.bindKeys();
         this.draw();
     }
+
+// END OF CLASS
 }
-
-
 
 export default Game;

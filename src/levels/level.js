@@ -78,24 +78,10 @@ class Level {
                     currentMove = [path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1]];
             }
         return currentMove;
+        }
     }
-}
-    //     for (let i = path.length - 4; i < path.length - 1; i++) {
-    //         if (path[i]) {
-    //             for (let j = 0; j < 2; j++) {
-    //                 console.log(path[i][j]);
-    //                 if (path[i][j] === currentMove[j]) {
-    //                     console.log("invalid move");
-    //                     return false;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return true;
 
-    
+// END OF CLASS
 }
-    
-    //END OF CLASS
 
 export default Level;
