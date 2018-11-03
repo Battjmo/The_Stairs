@@ -83,22 +83,23 @@ class Player {
     }
 
     canMoveEast() {
-        let eastMove = this.context.getImageData(this.playerX + 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
+        console.log(eastMove);
         return this.colorCheck(eastMove);
     }
 
     canMoveWest() {
-        let westMove = this.context.getImageData(this.playerX - 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        let westMove = this.context.getImageData(this.playerX - 1, this.playerY, 1, 1).data.slice(0, 3).join(",");        
         return this.colorCheck(westMove);
     }
 
     canMoveSouth() {
-        let southMove = this.context.getImageData(this.playerX, this.playerY + 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        let southMove = this.context.getImageData(this.playerX, this.playerY + 11, 1, 1).data.slice(0, 3).join(",");        
         return this.colorCheck(southMove);
     }
 
     canMoveNorth() {
-        let northMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        let northMove = this.context.getImageData(this.playerX, this.playerY - 1, 1, 1).data.slice(0, 3).join(",");        
         return this.colorCheck(northMove);
     }
 
