@@ -1,3 +1,5 @@
+import Level from './levels/level';
+
 class Player {
     constructor(game, name) {
 
@@ -8,8 +10,8 @@ class Player {
         //Self
         this.name = name;
         this.playerSize = 10;
-        this.playerX = this.game.canvasHeight / 2;
-        this.playerY = this.game.canvasHeight / 2;
+        this.playerX = 0;
+        this.playerY = 0;
         this.playerSpeed = 10;
 
         //Keys
@@ -22,7 +24,7 @@ class Player {
     drawPlayer() {
         this.context.beginPath();
         this.context.rect(this.playerX, this.playerY, this.playerSize, this.playerSize);
-        this.context.fillStyle = "#e83030";
+        this.context.fillStyle = "#e1e1e1";
         this.context.fill();
     }
 
@@ -63,19 +65,62 @@ class Player {
     }
 
     movePlayer() {
-        if (this.playerMoveLeft && this.playerX > 0) {
+        if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
             this.playerX -= this.playerSpeed;
-        }
-        if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10) {
+            }
+        else if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 && this.canMoveEast()) {
             this.playerX += this.playerSpeed;
-        }
-        if (this.playerMoveUp && this.playerY > 0) {
+            }
+        else if  (this.playerMoveUp && this.playerY > 0 && this.canMoveNorth()) {
             this.playerY -= this.playerSpeed;
         }
-        if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10) {
+        else if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10 && this.canMoveSouth()) {
             this.playerY += this.playerSpeed;
         }
     }
+
+    moveCheck(groundColor) {
+        if (groundColor !== "224,11,64") return false;
+        return true;
+    }
+
+    checkBoundary(playerDirection, playerDestination) {
+        if (playerDirection === "right" && playerDestination >= this.game.canvasWidth - 10) {
+            return "right";
+        }
+        else if ((playerDirection === "down" && playerDestination >= this.game.canvasHeight - 10)) {
+            return "down";
+        }
+        else {
+            return false;
+        }
+    }
+
+    canMoveEast() {
+        if (this.checkBoundary("right", this.playerX + 11)) {
+            this.playerX = 0;
+            this.game.level = new Level(this.context);
+        }
+        let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
+        return this.moveCheck(eastMove);
+    }
+
+    canMoveWest() {
+        let westMove = this.context.getImageData(this.playerX - 1, this.playerY, 1, 1).data.slice(0, 3).join(",");        
+        return this.moveCheck(westMove);
+    }
+
+    canMoveSouth() {
+        let southMove = this.context.getImageData(this.playerX, this.playerY + 11, 1, 1).data.slice(0, 3).join(",");        
+        return this.moveCheck(southMove);
+    }
+
+    canMoveNorth() {
+        let northMove = this.context.getImageData(this.playerX, this.playerY - 1, 1, 1).data.slice(0, 3).join(",");        
+        return this.moveCheck(northMove);
+    }
+
+// END OF CLASS
 }
 
 export default Player;
