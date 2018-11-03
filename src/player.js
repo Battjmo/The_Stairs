@@ -63,19 +63,16 @@ class Player {
     }
 
     movePlayer() {
-        if (this.playerMoveLeft && this.playerX > 0 && this.onPath()) {
+        if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
             this.playerX -= this.playerSpeed;
-            console.log();
         }
-        if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 
-            && this.onPath()) {
+        if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 && this.canMoveEast()) {
             this.playerX += this.playerSpeed;
         }
-        if (this.playerMoveUp && this.playerY > 0 && this.onPath()) {
+        if (this.playerMoveUp && this.playerY > 0 && this.canMoveNorth()) {
             this.playerY -= this.playerSpeed;
         }
-        if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10
-            && this.onPath()) {
+        if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10 && this.canMoveSouth()) {
             this.playerY += this.playerSpeed;
         }
     }
@@ -93,20 +90,40 @@ class Player {
         return ('#' + r.toString(16) + g.toString(16) + b.toString(16));
 }
 
+    colorCheck(playerColor) {
+        if (playerColor !== "224,11,64") return false;
+        return true;
+    }
+
+    canMoveEast() {
+        let eastMove = this.context.getImageData(this.playerX + 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        console.log(eastMove);
+        return this.colorCheck(eastMove);
+    }
+
+    canMoveWest() {
+        let westMove = this.context.getImageData(this.playerX - 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        return this.colorCheck(westMove);
+    }
+
+    canMoveSouth() {
+        let southMove = this.context.getImageData(this.playerX, this.playerY + 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        return this.colorCheck(southMove);
+    }
+
+    canMoveNorth() {
+        let northMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        return this.colorCheck(northMove);
+    }
     onPath() {
-        let rightMove = this.context.getImageData(this.playerX + 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
-        let bottomMove = this.context.getImageData(this.playerX, this.playerY + 10, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
-        let leftMove = this.context.getImageData(this.playerX - 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
-        let topMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
+        let bottomMove = this.context.getImageData(this.playerX, this.playerY + 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        let leftMove = this.context.getImageData(this.playerX - 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
+        let topMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(",");
         console.log(rightMove);
         console.log(leftMove);
         let moves = [rightMove, bottomMove, leftMove, topMove];
-
-        // console.log(imageData);
-        // let currentColor = imageData.data.slice(0, 3);
-        // console.log(currentColor.join(", "));
         for(let i = 0; i < moves.length; i++) {
-            if (moves[i] !== "224, 11, 64") {
+            if (moves[i] === "224,11,64" || moves[i] === "0,0,0") {
                 return false;
             }
         }
