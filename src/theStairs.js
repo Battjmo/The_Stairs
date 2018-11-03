@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentGame = new Game(context);
     gameCanvas.height = currentGame.canvasHeight;
     gameCanvas.width = currentGame.canvasWidth;
+    context.fillStyle = "blue";
+    
     currentGame.play();
 });
 
