@@ -63,17 +63,19 @@ class Player {
     }
 
     movePlayer() {
-        if (this.playerMoveLeft && this.playerX > 0) {
+        if (this.playerMoveLeft && this.playerX > 0 && this.onPath()) {
             this.playerX -= this.playerSpeed;
-            console.log(this.onPath())
+            console.log();
         }
-        if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10) {
+        if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 
+            && this.onPath()) {
             this.playerX += this.playerSpeed;
         }
-        if (this.playerMoveUp && this.playerY > 0) {
+        if (this.playerMoveUp && this.playerY > 0 && this.onPath()) {
             this.playerY -= this.playerSpeed;
         }
-        if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10) {
+        if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10
+            && this.onPath()) {
             this.playerY += this.playerSpeed;
         }
     }
@@ -92,11 +94,24 @@ class Player {
 }
 
     onPath() {
-        let imageData = this.context.getImageData(this.playerX, this.playerY, this.playerSize, this.playerSize);
-        let currentColor = imageData.data.slice(0, 3);
-        currentColor = this.rgbaToHex(currentColor.join(", "));
-        if (currentColor == "e1e1e1") return true;
-        return false;
+        let rightMove = this.context.getImageData(this.playerX + 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
+        let bottomMove = this.context.getImageData(this.playerX, this.playerY + 10, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
+        let leftMove = this.context.getImageData(this.playerX - 10, this.playerY, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
+        let topMove = this.context.getImageData(this.playerX, this.playerY - 10, this.playerSize, this.playerSize).data.slice(0, 3).join(", ");
+        console.log(rightMove);
+        console.log(leftMove);
+        let moves = [rightMove, bottomMove, leftMove, topMove];
+
+        // console.log(imageData);
+        // let currentColor = imageData.data.slice(0, 3);
+        // console.log(currentColor.join(", "));
+        for(let i = 0; i < moves.length; i++) {
+            if (moves[i] !== "224, 11, 64") {
+                return false;
+            }
+        }
+        // if (currentColor.join(", ") === "224, 11, 64") return true;
+        return true;
     }
 }
 

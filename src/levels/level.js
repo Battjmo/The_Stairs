@@ -18,7 +18,7 @@ class Level {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
             this.context.rect(this.path[i][0], this.path[i][1], this.pathSize, this.pathSize);
-            this.context.fillStyle = "#e83030";
+            this.context.fillStyle = "rgb(224, 11, 64)";
             this.context.fill();
         } 
     }
