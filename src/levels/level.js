@@ -36,15 +36,15 @@ class Level {
     pathGenerator() {
         let path = [this.pathStart];
         let moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
-        console.log(path[path.length - 1][0] + 100);
+        // console.log(path[path.length - 1][0] + 100);
         
         while (path[path.length - 1][0] + 100 < this.xBound && path[path.length - 1][1] + 100 < this.yBound) {
             let shuffledMoves = this.shuffle(moves);
-            console.log(path);
+            // console.log(path);
             let currentMove = this.validMove(path, shuffledMoves);
             path = path.slice();
             path.push(currentMove);
-            console.log(path);
+            // console.log(path);
             }
 
         return path;
@@ -68,15 +68,15 @@ class Level {
                 workingMoves.splice(workingMoves.indexOf(element), 1);
             }
         });
-        console.log("working moves: ", workingMoves);
+        // console.log("working moves: ", workingMoves);
         //check for path collision
         let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1]];
         for (let j = 0; j < path.length; j++) {
                 if (path[j][0] === currentMove[0] && path[j][1] === currentMove[1]) {
-                    console.log("in here");
-                    console.log(currentMoveIndex);
+                    // console.log("in here");
+                    // console.log(currentMoveIndex);
                     currentMoveIndex++;
-                    console.log(workingMoves[currentMoveIndex]);
+                    // console.log(workingMoves[currentMoveIndex]);
                     currentMove = [path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1]];
             }
         return currentMove;

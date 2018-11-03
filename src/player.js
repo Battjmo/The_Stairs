@@ -111,6 +111,10 @@ class Player {
     }
 
     canMoveSouth() {
+        if (this.checkBoundary("down", this.playerY + 11)) {
+            this.playerY = 0;
+            this.game.level = new Level(this.context);
+        }
         let southMove = this.context.getImageData(this.playerX, this.playerY + 11, 1, 1).data.slice(0, 3).join(",");        
         return this.moveCheck(southMove);
     }
