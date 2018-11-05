@@ -8,6 +8,8 @@ class Game {
         this.canvasWidth = 900;
         this.player = new Player(this, "Nigel");
         this.level = new Level(this.context);
+        this.noScroll = this.noScroll.bind(this);
+        this.draw = this.draw.bind(this);
     }
 
     //THANKS DAVID WELLS (NOT THE FAMOUS YANKEE PRESUMABLY)
@@ -22,30 +24,11 @@ class Game {
         this.level.drawLevel();
         this.player.movePlayer();
         this.player.drawPlayer();
-        requestAnimationFrame(this.draw.bind(this));
-    }
-
-    movePlayer() {
-            if (this.player.playerMoveLeft && this.player.playerX > 0) {
-                this.player.playerX -= this.player.playerSpeed;
-            }
-            if (this.player.playerMoveRight && this.player.playerX < this.canvasWidth - 10) {
-                this.player.playerX += this.player.playerSpeed;
-            }
-            if (this.player.playerMoveUp && this.player.playerY > 0) {
-                this.player.playerY -= this.player.playerSpeed;
-            }
-            if (this.player.playerMoveDown && this.player.playerY < this.canvasHeight - 10) {
-                this.player.playerY += this.player.playerSpeed;
-        }
-    }
-
-    compareColor(location) {
-        
+        requestAnimationFrame(this.draw);
     }
 
     play() {
-        window.addEventListener("scroll", this.noScroll.bind(this));
+        window.addEventListener("scroll", this.noScroll);
         this.player.bindKeys();
         this.draw();
     }
