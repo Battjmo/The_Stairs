@@ -85,15 +85,11 @@ class Player {
     }
 
     checkBoundary(playerDirection, playerDestination) {
-        if (playerDirection === "right" && playerDestination >= this.game.canvasWidth - 10) {
-            return "right";
+        if ((playerDirection === "right" && playerDestination >= this.game.canvasWidth - 10) 
+            || (playerDirection === "down" && playerDestination >= this.game.canvasHeight - 10)) {
+            return true;
         }
-        else if ((playerDirection === "down" && playerDestination >= this.game.canvasHeight - 10)) {
-            return "down";
-        }
-        else {
-            return false;
-        }
+        else return false;
     }
 
     canMoveEast() {
