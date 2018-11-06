@@ -93,12 +93,14 @@ class Player {
     }
 
     canMoveEast() {
-        if (this.checkBoundary("right", this.playerX + 11)) {
+        let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
+        if (this.moveCheck(eastMove) === false && (this.checkBoundary("right", this.playerX))) { 
+            console.log("hi");
             this.playerX = 0;
             this.game.level = new Level(this.context, 0, this.playerY);
-        }
-        let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
-        return this.moveCheck(eastMove);
+            return false;
+            }
+        return true;
     }
 
     canMoveWest() {
