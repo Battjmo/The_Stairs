@@ -4,6 +4,7 @@ canvas {
     margin: 100px auto;
 }
 
-textarea {
-    margin: auto;
-}
+/* textarea {
+    display: block;
+    margin: 10px auto;
+} */
