@@ -1,5 +1,9 @@
 canvas {
-    background: rgb(0, 0, 0);
+    background: "blue";
     display: block;
     margin: 100px auto;
+}
+
+textarea {
+    margin: auto;
 }

@@ -93,14 +93,20 @@ class Player {
     }
 
     canMoveEast() {
-        let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
-        if (this.moveCheck(eastMove) === false && (this.checkBoundary("right", this.playerX))) { 
-            console.log("hi");
+        // let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
+        // if (this.moveCheck(eastMove) === false && (this.checkBoundary("right", this.playerX))) { 
+        //     console.log("hi");
+        //     this.playerX = 0;
+        //     this.game.level = new Level(this.context, 0, this.playerY);
+        //     return false;
+        //     }
+        // return true;
+        if (this.checkBoundary("right", this.playerX + 10)) {
             this.playerX = 0;
             this.game.level = new Level(this.context, 0, this.playerY);
-            return false;
-            }
-        return true;
+        }
+        let eastMove = this.context.getImageData(this.playerX + 10, this.playerY, 1, 1).data.slice(0, 3).join(",");
+        return this.moveCheck(eastMove);
     }
 
     canMoveWest() {
@@ -109,11 +115,11 @@ class Player {
     }
 
     canMoveSouth() {
-        if (this.checkBoundary("down", this.playerY + 11)) {
+        if (this.checkBoundary("down", this.playerY + 10)) {
             this.playerY = 0;
             this.game.level = new Level(this.context, this.playerX, 0);
         }
-        let southMove = this.context.getImageData(this.playerX, this.playerY + 11, 1, 1).data.slice(0, 3).join(",");        
+        let southMove = this.context.getImageData(this.playerX, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");        
         return this.moveCheck(southMove);
     }
 

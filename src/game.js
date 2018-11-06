@@ -4,7 +4,7 @@ import Level from './levels/level';
 class Game {
     constructor(context) {
         this.context = context;
-        this.canvasHeight = 700;
+        this.canvasHeight = 500;
         this.canvasWidth = 900;
         this.player = new Player(this, "Nigel");
         this.level = new Level(this.context);
