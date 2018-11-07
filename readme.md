@@ -1,5 +1,8 @@
 # The Stairs: Short story-based experience in JS
 
+
+### [GIVE IT A GO!](https://battjmo.github.io/The_Stairs/)
+
 ## SUMMARY
 
 The Stairs is going to be a procedurally generated short interactive storytelling experience / walking simulator / #notagame for the browser. 
