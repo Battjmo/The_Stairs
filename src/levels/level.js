@@ -4,7 +4,7 @@ class Level {
     constructor(context, startX = 0, startY = 0) {
         this.context = context;
         this.xBound = 900;
-        this.yBound = 700;
+        this.yBound = 500;
         this.pathSize = 100;
         this.pathX = this.pathSize;
         this.pathY = this.pathSize;
