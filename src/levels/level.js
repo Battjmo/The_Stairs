@@ -2,9 +2,10 @@ import Util from '../util';
 import Text from '../events/text';
 
 class Level {
-    constructor(context, startX = 0, startY = 0, textBox) {
+    constructor(context, startX = 0, startY = 0, textBox, textIndex = 0) {
         this.context = context;
         this.textBox = textBox;
+        this.textIndex = textIndex;
         this.xBound = 900;
         this.yBound = 500;
         this.pathSize = 100;
@@ -13,7 +14,12 @@ class Level {
         this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY];
         this.path = this.pathGenerator();
-        this.textBox.innerHTML = Util.shuffle(Text)[0];
+        this.textBox.innerHTML = this.textSetter(this.textIndex);
+    }
+
+    textSetter(textIndex) {
+        if (Text[textIndex]) return Text[textIndex];
+        else return "That's all the text so far.";
     }
 
     drawLevel() {

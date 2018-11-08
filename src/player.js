@@ -104,7 +104,7 @@ class Player {
         // return true;
         if (this.checkBoundary("right", this.playerX + 10)) {
             this.playerX = 0;
-            this.game.level = new Level(this.context, 0, this.playerY, this.textBox);
+            this.game.level = new Level(this.context, 0, this.playerY, this.textBox, this.game.level.textIndex + 1);
         }
         let eastMove = this.context.getImageData(this.playerX + 10, this.playerY, 1, 1).data.slice(0, 3).join(",");
         return this.moveCheck(eastMove);
@@ -118,7 +118,7 @@ class Player {
     canMoveSouth() {
         if (this.checkBoundary("down", this.playerY + 10)) {
             this.playerY = 0;
-            this.game.level = new Level(this.context, this.playerX, 0, this.textBox);
+            this.game.level = new Level(this.context, this.playerX, 0, this.textBox, this.game.level.textIndex + 1);
         }
         let southMove = this.context.getImageData(this.playerX, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");        
         return this.moveCheck(southMove);
