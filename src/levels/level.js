@@ -14,12 +14,12 @@ class Level {
         this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY];
         this.path = this.pathGenerator();
-        this.textBox.innerHTML = this.textSetter(this.textIndex);
+        this.textBox.innerHTML = this.textSetter(textIndex);
     }
 
     textSetter(textIndex) {
         if (Text[textIndex]) return Text[textIndex];
-        else return "That's all the text so far.";
+        return "That's all the text so far.";
     }
 
     drawLevel() {

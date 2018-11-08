@@ -111,7 +111,7 @@ class Player {
     }
 
     canMoveWest() {
-        let westMove = this.context.getImageData(this.playerX - 1, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");        
+        let westMove = this.context.getImageData(this.playerX - 1, this.playerY, 1, 1).data.slice(0, 3).join(",");        
         return this.moveCheck(westMove);
     }
 
