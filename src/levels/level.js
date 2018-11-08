@@ -1,16 +1,19 @@
 import Util from '../util';
+import Text from '../events/text';
 
 class Level {
-    constructor(context, startX = 0, startY = 0) {
+    constructor(context, startX = 0, startY = 0, textBox) {
         this.context = context;
+        this.textBox = textBox;
         this.xBound = 900;
         this.yBound = 500;
         this.pathSize = 100;
         this.pathX = this.pathSize;
         this.pathY = this.pathSize;
+        this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY];
-        this.shuffle = this.shuffle.bind(this);
         this.path = this.pathGenerator();
+        this.textBox.innerHTML = Util.shuffle(Text)[0];
     }
 
     drawLevel() {
@@ -20,16 +23,6 @@ class Level {
             this.context.fillStyle = "rgb(224, 11, 64)";
             this.context.fill();
         } 
-    }
-
-    //shuffles moves w/ Fisher-Yates shuffle algo
-    shuffle(moves) {
-        let newMoves = moves.slice();
-        for (let i = moves.length - 1; i >= 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newMoves[i], newMoves[j]] = [newMoves[j], newMoves[i]];
-        }
-        return newMoves;
     }
 
     pathGenerator() {
