@@ -40,6 +40,7 @@ class Level {
             path = path.slice();
             path.push(currentMove);
             }
+        console.log(path);
         return path;
     }
 
@@ -62,6 +63,7 @@ class Level {
         let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1]];
         for (let j = 0; j < path.length; j++) {
                 if (path[j][0] === currentMove[0] && path[j][1] === currentMove[1]) {
+                    currentMoveIndex += 1;
                     currentMove = [path[path.length - 1][0] + workingMoves[currentMoveIndex][0], path[path.length - 1][1] + workingMoves[currentMoveIndex][1]];
             }
         return currentMove;
