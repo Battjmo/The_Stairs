@@ -54,11 +54,19 @@ class Level {
             //     workingMoves.splice(index, 1);
             // }
         // } 
-        workingMoves.forEach((element) => {
-            if ((path[path.length - 1][0] + element[0]) < 0 || (path[path.length - 1][1] + element[1]) < 0) {
-                workingMoves.splice(workingMoves.indexOf(element), 1);
+        // workingMoves.forEach((element) => {
+        //     if ((path[path.length - 1][0] + element[0]) < 0 || (path[path.length - 1][1] + element[1]) < 0) {
+        //         workingMoves.splice(workingMoves.indexOf(element), 1);
+        //     }
+        // });
+        let i = 0;
+        while (workingMoves[i]) {
+            if ((path[path.length - 1][0] + workingMoves[i][0]) < 0 || (path[path.length - 1][1] + workingMoves[i][1]) < 0) {
+                workingMoves.splice(i, 1);
+            } else {
+                i++;
             }
-        });
+        }
         //check for path collision
         let currentMove = [path[path.length - 1][0] + workingMoves[0][0], path[path.length - 1][1] + workingMoves[0][1]];
         for (let j = 0; j < path.length; j++) {
