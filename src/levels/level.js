@@ -1,11 +1,11 @@
 import Util from '../util';
 import Text from '../events/text';
+import Events from '../events/eventList';
 
 class Level {
-    constructor(context, startX = 0, startY = 0, textBox, textIndex = 0) {
+    constructor(context, startX = 0, startY = 0, textBox, events = Events) {
         this.context = context;
         this.textBox = textBox;
-        this.textIndex = textIndex;
         this.xBound = 900;
         this.yBound = 500;
         this.pathSize = 100;
@@ -14,7 +14,8 @@ class Level {
         this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY];
         this.path = this.pathGenerator();
-        this.textBox.innerHTML = this.textSetter(textIndex);
+        // this.events = this.seedEvents(events);
+        this.textBox.innerHTML = this.textSetter();
     }
 
     textSetter(textIndex) {
@@ -31,6 +32,23 @@ class Level {
         } 
     }
 
+    /* PATH GEN VOLUME 2: TETRIS STYLE
+        1. MAKE A BANK OF SHAPES
+        2. START FROM THE PROPER SPOT AS BEFORE
+        3. FILTER FOR SHAPES THAT CAN FIT AT THE CURRENT START COORDINATE
+        4. USE RNG TO SELECT A SHAPE FROM THE FILTERED LIST
+        5. DRAW THE SHAPE
+        6. USE RNG AGAIN TO DETERMINE IF EVENT GETS PLACED ON THAT SHAPE
+        7. CHECK IF THAT SPACE TOUCHES ONE OF THE EXIT WALLS:
+            IF YES: MAKE THE EXIT AS NORMAL
+            IF NO: CHOOSE AN ELIGIBLE EDGE LOCATION ON THE SHAPE TO BE THE EXIT POINT
+        8. REPEAT UNTIL 7 IS TRUE
+    */
+
+    pathGenerator2() {
+        let path = [this.pathStart];
+        
+    }
     pathGenerator() {
         let path = [this.pathStart];
         let moves = [[0, this.pathSize], [this.pathSize, 0], [-this.pathSize, 0], [0, -this.pathSize]];
@@ -72,6 +90,12 @@ class Level {
         return currentMove;
         }
     }
+
+    // seedEvents(Event = Events) {
+    //     for (let i = 0; i < this.path.length; i++) {
+
+    //     }
+    // }
 
 //END OF CLASS
 }
