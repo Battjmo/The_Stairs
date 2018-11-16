@@ -1,5 +1,6 @@
 import Player from './player';
 import Level from './levels/level';
+import Events from './events/eventList';
 
 class Game {
     constructor(context, textBox) {
