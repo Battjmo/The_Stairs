@@ -23,7 +23,7 @@ class Game {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.context.fillStyle = 'blue';
         this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.level.drawLevel();
+        this.level.drawLevel2();
         this.player.movePlayer();
         this.player.drawPlayer();
         requestAnimationFrame(this.draw);
