@@ -136,11 +136,11 @@ class Level {
         }
     }
 
-    // seedEvents(Event = Events) {
-    //     for (let i = 0; i < this.path.length; i++) {
+    seedEvents(Event = Events) {
+        for (let i = 0; i < this.path.length; i++) {
 
-    //     }
-    // }
+        }
+    }
 
 //END OF CLASS
 }
