@@ -2,6 +2,8 @@ canvas {
     background: "blue";
     display: block;
     margin: 20px auto;
+    border-radius: 5px;
+    border: 5px ridge blue;
 }
 
 textarea {

@@ -15,7 +15,7 @@ class Level {
         this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY, 100, 100];
         this.path = this.pathGenerator2();
-        // this.events = this.seedEvents(events);
+        this.events = this.seedEvents(events);
         this.textBox.innerHTML = this.textSetter();
     }
 
@@ -136,9 +136,12 @@ class Level {
         }
     }
 
-    seedEvents(Event = Events) {
+    seedEvents(currentEvents = Events) {
+        
         for (let i = 0; i < this.path.length; i++) {
+            for (let j = 0; j < currentEvents.length; j++) {
 
+            }
         }
     }
 

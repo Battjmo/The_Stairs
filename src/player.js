@@ -1,4 +1,5 @@
 import Level from './levels/level';
+import Events from './events/eventList';
 
 class Player {
     constructor(game, name) {
@@ -10,6 +11,7 @@ class Player {
 
         //Self
         this.name = name;
+        this.events = Events;
         this.playerSize = 10;
         this.playerX = 0;
         this.playerY = 0;
