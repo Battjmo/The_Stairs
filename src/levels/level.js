@@ -42,19 +42,6 @@ class Level {
         } 
     }
 
-    /* PATH GEN VOLUME 2: TETRIS STYLE
-        1. MAKE A BANK OF SHAPES
-        2. START FROM THE PROPER SPOT AS BEFORE
-        3. FILTER FOR SHAPES THAT CAN FIT AT THE CURRENT START COORDINATE
-        4. USE RNG TO SELECT A SHAPE FROM THE FILTERED LIST
-        5. DRAW THE SHAPE
-        6. USE RNG AGAIN TO DETERMINE IF EVENT GETS PLACED ON THAT SHAPE
-        7. CHECK IF THAT SPACE TOUCHES ONE OF THE EXIT WALLS:
-            IF YES: MAKE THE EXIT AS NORMAL
-            IF NO: CHOOSE AN ELIGIBLE EDGE LOCATION ON THE SHAPE TO BE THE EXIT POINT
-        8. REPEAT UNTIL 7 IS TRUE
-    */
-
     pathGenerator2() {
         let path = [this.pathStart];
         while (path[path.length - 1][0] + 100 < this.xBound && path[path.length - 1][1] + 100 < this.yBound) {
@@ -111,12 +98,6 @@ class Level {
         // remove out of bounds 
         let workingMoves = shuffledMoves.slice();
         let currentMoveIndex = 0;
-        // for (let index = 0; index < workingMoves.length; index++) {
-        //     console.log(path[path.length - 1][0] + workingMoves[index][0], path[path.length - 1][1] + workingMoves[index][1])
-            // if ((path[path.length - 1][0] + workingMoves[index][0]) < 0 || (path[path.length - 1][1] + workingMoves[index][1]) < 0) {
-            //     workingMoves.splice(index, 1);
-            // }
-        // } 
         let i = 0;
         while (workingMoves[i]) {
             if ((path[path.length - 1][0] + workingMoves[i][0]) < 0 || (path[path.length - 1][1] + workingMoves[i][1]) < 0) {
@@ -136,13 +117,27 @@ class Level {
         }
     }
 
+    /* seeding procedure:
+    1. create empty event list
+    2. iterate over path
+        A. iterate through events
+        B. if path element has an eligible event by size:
+            a. add the events coords, size, and the event itself to the event list
+    */
     seedEvents(currentEvents = Events) {
-        
-        for (let i = 0; i < this.path.length; i++) {
-            for (let j = 0; j < currentEvents.length; j++) {
-
-            }
+        const events = [];
+        if (currentEvents[0].name === "Welcome") {
+            console.log("yus");
+            events.push([0, 0, 100, 100, currentEvents]);
+            return events;
         }
+        // for (let i = 0; i < this.path.length; i++) {
+        //     for (let j = 0; j < currentEvents.length; j++) {
+        //         if (this.path[i][2] === currentEvents[j].size[0] && this.path[i][3] === currentEvents[j].size[0])
+                
+        //     }
+        // }
+        console.log(currentEvents.size[0]);
     }
 
 //END OF CLASS

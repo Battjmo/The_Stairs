@@ -6,10 +6,11 @@ class Game {
     constructor(context, textBox) {
         this.context = context;
         this.textBox = textBox;
+        this.events = Events;
         this.canvasHeight = 500;
         this.canvasWidth = 900;
-        this.player = new Player(this, "Nigel");
-        this.level = new Level(this.context, 0, 0, this.textBox);
+        this.player = new Player(this, "Nigel", this.events);
+        this.level = new Level(this.context, 0, 0, this.textBox, this.events[0]);
         this.noScroll = this.noScroll.bind(this);
         this.draw = this.draw.bind(this);
     }
