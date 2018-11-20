@@ -128,15 +128,18 @@ class Level {
         const events = [];
         if (currentEvents[0].name === "Welcome") {
             console.log("yus");
-            events.push([0, 0, 100, 100, currentEvents]);
+            events.push([0, 0, currentEvents]);
             return events;
         }
-        // for (let i = 0; i < this.path.length; i++) {
-        //     for (let j = 0; j < currentEvents.length; j++) {
-        //         if (this.path[i][2] === currentEvents[j].size[0] && this.path[i][3] === currentEvents[j].size[0])
-                
-        //     }
-        // }
+        for (let i = 0; i < this.path.length; i++) {
+            for (let j = 0; j < currentEvents.length; j++) {
+                if (this.path[i][2] === currentEvents[j].size[0] && this.path[i][3] === currentEvents[j].size[0])
+                    if (Util.randomNumber(0,2) === 1) {
+                        events.push([0, 0, currentEvents[j]]);
+                        currentEvents.splice(j, 1);
+                    }
+            }
+        }
         console.log(currentEvents.size[0]);
     }
 
