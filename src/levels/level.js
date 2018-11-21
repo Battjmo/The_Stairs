@@ -24,6 +24,7 @@ class Level {
         return "That's all the text so far.";
     }
 
+    // freeform
     drawLevel() {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
@@ -33,6 +34,7 @@ class Level {
         } 
     }
 
+    // with premade shapes
     drawLevel2() {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
@@ -124,23 +126,29 @@ class Level {
         B. if path element has an eligible event by size:
             a. add the events coords, size, and the event itself to the event list
     */
-    seedEvents(currentEvents = Events) {
-        const events = [];
-        if (currentEvents[0].name === "Welcome") {
-            console.log("yus");
-            events.push([0, 0, currentEvents]);
-            return events;
+    seedEvents(events) {
+        const currentEvents = [];
+        console.log("Events: ", events);
+        console.log("size: ", events[1].size[1]);
+        if (events[0].played === false) {
+            events[0].played = true;
+            currentEvents.push(this.path[0], events[0]);
+            console.log ("welcome in place", currentEvents);
+            return currentEvents;
         }
         for (let i = 0; i < this.path.length; i++) {
-            for (let j = 0; j < currentEvents.length; j++) {
-                if (this.path[i][2] === currentEvents[j].size[0] && this.path[i][3] === currentEvents[j].size[0])
-                    if (Util.randomNumber(0,2) === 1) {
-                        events.push([0, 0, currentEvents[j]]);
-                        currentEvents.splice(j, 1);
+            for (let j = 0; j < events.length; j++) {
+                console.log("events[j]: ", events[j]);
+                if (this.path[i][2] === events[j].size[0] && this.path[i][3] === events[j].size[1] && events[j].played === false) {
+                    if (Util.randomNumber(0, 2) === 1) {
+                        currentEvents.push([this.path[i], events[j]]);
+                        events[j].played = true;
                     }
+                }
             }
-        }
-        console.log(currentEvents.size[0]);
+        }   
+        console.log("current events: ", currentEvents);
+        return currentEvents;
     }
 
 //END OF CLASS

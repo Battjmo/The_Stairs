@@ -52,11 +52,10 @@ const Dance = {
 
 //array of all events
 const Events = [
-    [Welcome], [
+    Welcome, 
     Ending,
     Dance,
     Food
-    ]
 ];
 
 export default Events;
