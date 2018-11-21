@@ -37,31 +37,31 @@ class Player {
 
     //Key handlers
     keyDownHandler(e) {
-        if (e.keyCode === 39) {
+        if (e.keyCode === 39 || e.keyCode === 68) {
             this.playerMoveRight = true;
         }
-        if (e.keyCode === 37) {
+        if (e.keyCode === 37 || e.keyCode === 65) {
             this.playerMoveLeft = true;
         }
-        if (e.keyCode === 38) {
+        if (e.keyCode === 38 || e.keyCode === 87) {
             this.playerMoveUp = true;
         }
-        if (e.keyCode === 40) {
+        if (e.keyCode === 40 || e.keyCode === 83) {
             this.playerMoveDown = true;
         }
     }
 
     keyUpHandler(e) {
-        if (e.keyCode === 39) {
+        if (e.keyCode === 39 || e.keyCode === 68) {
             this.playerMoveRight = false;
         }
-        if (e.keyCode === 37) {
+        if (e.keyCode === 37 || e.keyCode === 65) {
             this.playerMoveLeft = false;
         }
-        if (e.keyCode === 38) {
+        if (e.keyCode === 38 || e.keyCode === 87) {
             this.playerMoveUp = false;
         }
-        if (e.keyCode === 40) {
+        if (e.keyCode === 40 || e.keyCode === 83) {
             this.playerMoveDown = false;
         }
     }
