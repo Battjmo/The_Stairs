@@ -8,7 +8,7 @@ class Game {
         this.textBox = textBox;
         this.canvasHeight = 500;
         this.canvasWidth = 900;
-        this.player = new Player(this, "Nigel");
+        this.player = new Player(this, "Nigel", this.events);
         this.level = new Level(this.context, 0, 0, this.textBox);
         this.noScroll = this.noScroll.bind(this);
         this.draw = this.draw.bind(this);

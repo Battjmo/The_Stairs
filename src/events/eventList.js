@@ -5,6 +5,7 @@ import Game from '../game.js';
 
 //event objects
 const Welcome = {
+    name: "Welcome",
     text: [`Well Nige, looks like we've nowhere to go but up.`,
             `Yeah, it's getting pretty damn warm down here. Let's rock`
           ],
@@ -13,6 +14,7 @@ const Welcome = {
 };
 
 const Ending = {
+    name: "Ending",
     text: [`Well Nige, looks like we've nowhere else to go.`,
         `WHAT THE FUCK?!`,
         `What the single fuck indeed.`,
@@ -27,6 +29,7 @@ const Ending = {
 };
 
 const Food = {
+    name: "Food",
     text: [`How much food ya got left?`,
         `Lemme check. *Takes off his backpack, rummages around inside* Two power bars, one bag of Oberto,
         and most of a liter of water. You?`,
@@ -39,6 +42,7 @@ const Food = {
 };
 
 const Dance = {
+    name: "Dance",
     text: [`Well Nige, looks like we've nowhere to go but up.`,
         `Yeah, it's getting pretty damn warm down here. Let's rock`
     ],
@@ -48,7 +52,7 @@ const Dance = {
 
 //array of all events
 const Events = [
-    Welcome,
+    Welcome, 
     Ending,
     Dance,
     Food

@@ -1,7 +1,7 @@
 import Level from './levels/level';
 
 class Player {
-    constructor(game, name) {
+    constructor(game, name, events) {
 
         //context
         this.game = game;
@@ -10,6 +10,7 @@ class Player {
 
         //Self
         this.name = name;
+        this.events = events;
         this.playerSize = 10;
         this.playerX = 0;
         this.playerY = 0;
@@ -94,18 +95,10 @@ class Player {
     }
 
     canMoveEast() {
-        // let eastMove = this.context.getImageData(this.playerX + 11, this.playerY, 1, 1).data.slice(0, 3).join(",");
-        // if (this.moveCheck(eastMove) === false && (this.checkBoundary("right", this.playerX))) { 
-        //     console.log("hi");
-        //     this.playerX = 0;
-        //     this.game.level = new Level(this.context, 0, this.playerY);
-        //     return false;
-        //     }
-        // return true;
         if (this.checkBoundary("right", this.playerX + 10)) {
             this.playerX = 0;
             this.playerY = Math.ceil(this.playerY / 100) * 100;
-            this.game.level = new Level(this.context, 0, this.playerY, this.textBox, this.game.level.textIndex + 1);
+            this.game.level = new Level(this.context, 0, this.playerY, this.textBox, this.events);
         }
         let eastMove = this.context.getImageData(this.playerX + 10, this.playerY, 1, 1).data.slice(0, 3).join(",");
         return this.moveCheck(eastMove);
@@ -120,7 +113,7 @@ class Player {
         if (this.checkBoundary("down", this.playerY + 10)) {
             this.playerY = 0;
             this.playerX = Math.ceil(this.playerX / 100) * 100;
-            this.game.level = new Level(this.context, this.playerX, 0, this.textBox, this.game.level.textIndex + 1);
+            this.game.level = new Level(this.context, this.playerX, 0, this.textBox, this.events);
         }
         let southMove = this.context.getImageData(this.playerX, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");        
         return this.moveCheck(southMove);
@@ -130,6 +123,7 @@ class Player {
         let northMove = this.context.getImageData(this.playerX, this.playerY - 1, 1, 1).data.slice(0, 3).join(",");        
         return this.moveCheck(northMove);
     }
+
 
 // END OF CLASS
 }

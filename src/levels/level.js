@@ -15,7 +15,7 @@ class Level {
         this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY, 100, 100];
         this.path = this.pathGenerator2();
-        // this.events = this.seedEvents(events);
+        this.events = this.seedEvents(events);
         this.textBox.innerHTML = this.textSetter();
     }
 
@@ -24,6 +24,7 @@ class Level {
         return "That's all the text so far.";
     }
 
+    // freeform
     drawLevel() {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
@@ -33,6 +34,7 @@ class Level {
         } 
     }
 
+    // with premade shapes
     drawLevel2() {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
@@ -41,19 +43,6 @@ class Level {
             this.context.fill();
         } 
     }
-
-    /* PATH GEN VOLUME 2: TETRIS STYLE
-        1. MAKE A BANK OF SHAPES
-        2. START FROM THE PROPER SPOT AS BEFORE
-        3. FILTER FOR SHAPES THAT CAN FIT AT THE CURRENT START COORDINATE
-        4. USE RNG TO SELECT A SHAPE FROM THE FILTERED LIST
-        5. DRAW THE SHAPE
-        6. USE RNG AGAIN TO DETERMINE IF EVENT GETS PLACED ON THAT SHAPE
-        7. CHECK IF THAT SPACE TOUCHES ONE OF THE EXIT WALLS:
-            IF YES: MAKE THE EXIT AS NORMAL
-            IF NO: CHOOSE AN ELIGIBLE EDGE LOCATION ON THE SHAPE TO BE THE EXIT POINT
-        8. REPEAT UNTIL 7 IS TRUE
-    */
 
     pathGenerator2() {
         let path = [this.pathStart];
@@ -111,12 +100,6 @@ class Level {
         // remove out of bounds 
         let workingMoves = shuffledMoves.slice();
         let currentMoveIndex = 0;
-        // for (let index = 0; index < workingMoves.length; index++) {
-        //     console.log(path[path.length - 1][0] + workingMoves[index][0], path[path.length - 1][1] + workingMoves[index][1])
-            // if ((path[path.length - 1][0] + workingMoves[index][0]) < 0 || (path[path.length - 1][1] + workingMoves[index][1]) < 0) {
-            //     workingMoves.splice(index, 1);
-            // }
-        // } 
         let i = 0;
         while (workingMoves[i]) {
             if ((path[path.length - 1][0] + workingMoves[i][0]) < 0 || (path[path.length - 1][1] + workingMoves[i][1]) < 0) {
@@ -136,10 +119,36 @@ class Level {
         }
     }
 
-    seedEvents(Event = Events) {
-        for (let i = 0; i < this.path.length; i++) {
-
+    /* seeding procedure:
+    1. create empty event list
+    2. iterate over path
+        A. iterate through events
+        B. if path element has an eligible event by size:
+            a. add the events coords, size, and the event itself to the event list
+    */
+    seedEvents(events) {
+        const currentEvents = [];
+        console.log("Events: ", events);
+        console.log("size: ", events[1].size[1]);
+        if (events[0].played === false) {
+            events[0].played = true;
+            currentEvents.push(this.path[0], events[0]);
+            console.log ("welcome in place", currentEvents);
+            return currentEvents;
         }
+        for (let i = 0; i < this.path.length; i++) {
+            for (let j = 0; j < events.length; j++) {
+                console.log("events[j]: ", events[j]);
+                if (this.path[i][2] === events[j].size[0] && this.path[i][3] === events[j].size[1] && events[j].played === false) {
+                    if (Util.randomNumber(0, 2) === 1) {
+                        currentEvents.push([this.path[i], events[j]]);
+                        events[j].played = true;
+                    }
+                }
+            }
+        }   
+        console.log("current events: ", currentEvents);
+        return currentEvents;
     }
 
 //END OF CLASS
