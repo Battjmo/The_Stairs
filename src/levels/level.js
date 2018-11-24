@@ -128,26 +128,24 @@ class Level {
     */
     seedEvents(events) {
         const currentEvents = [];
-        console.log("Events: ", events);
-        console.log("size: ", events[1].size[1]);
         if (events[0].played === false) {
             events[0].played = true;
-            currentEvents.push(this.path[0], events[0]);
-            console.log ("welcome in place", currentEvents);
+            events[0].size.unshift(0, 0);
+            currentEvents.push(events[0]);
             return currentEvents;
-        }
+            }
         for (let i = 0; i < this.path.length; i++) {
             for (let j = 0; j < events.length; j++) {
-                console.log("events[j]: ", events[j]);
                 if (this.path[i][2] === events[j].size[0] && this.path[i][3] === events[j].size[1] && events[j].played === false) {
                     if (Util.randomNumber(0, 2) === 1) {
-                        currentEvents.push([this.path[i], events[j]]);
+                        events[j].size.unshift(this.path[i][0], this.path[i][1]);
                         events[j].played = true;
+                        currentEvents.push([events[j]]);
                     }
                 }
             }
-        }   
-        console.log("current events: ", currentEvents);
+        } 
+        console.log(currentEvents);
         return currentEvents;
     }
 

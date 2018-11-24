@@ -15,6 +15,7 @@ class Player {
         this.playerX = 0;
         this.playerY = 0;
         this.playerSpeed = 10;
+        this.canMove = true;
 
         //Keys
         this.playerMoveRight = false;
@@ -67,6 +68,12 @@ class Player {
     }
 
     movePlayer() {
+        for (let i = 0; i < this.game.level.events.length; i++) {
+            if ((this.game.level.events[i][0] <= this.playerX && this.playerX < this.game.level.events[i][0] + this.game.level.events[i][2]) &&
+                this.game.level.events[i][1] <= this.playerY && this.playerY < this.game.level.events[i][1] + this.game.level.events[i][3]) {
+                    // this.triggerEvent(this.game.level.events[i]);
+                }
+        }
         if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
             this.playerX -= this.playerSpeed;
             }
@@ -93,6 +100,14 @@ class Player {
         }
         else return false;
     }
+
+    // triggerEvent(event) {
+    //     this.canMove = false;
+
+    //     for (let i = 0; i < event.text.length; i++) {
+    //         setInterval(function() {this.textBox.innerHTML = event.text[i];}, 5000);
+    //     }
+    // }
 
     canMoveEast() {
         if (this.checkBoundary("right", this.playerX + 10)) {
