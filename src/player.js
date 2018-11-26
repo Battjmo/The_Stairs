@@ -78,18 +78,20 @@ class Player {
                     this.triggerEvent(this.game.level.events[i]);
                 }
         }
-        if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
-            this.playerX -= this.playerSpeed;
+        if (this.canMove) {
+            if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
+                this.playerX -= this.playerSpeed;
+                }
+            else if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 && this.canMoveEast()) {
+                this.playerX += this.playerSpeed;
+                }
+            else if  (this.playerMoveUp && this.playerY > 0 && this.canMoveNorth()) {
+                this.playerY -= this.playerSpeed;
             }
-        else if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 && this.canMoveEast()) {
-            this.playerX += this.playerSpeed;
+            else if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10 && this.canMoveSouth()) {
+                this.playerY += this.playerSpeed;
             }
-        else if  (this.playerMoveUp && this.playerY > 0 && this.canMoveNorth()) {
-            this.playerY -= this.playerSpeed;
-        }
-        else if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10 && this.canMoveSouth()) {
-            this.playerY += this.playerSpeed;
-        }
+        }   
     }
 
     moveCheck(groundColor) {
