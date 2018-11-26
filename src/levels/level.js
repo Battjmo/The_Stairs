@@ -17,6 +17,7 @@ class Level {
         this.path = this.pathGenerator2();
         this.events = this.seedEvents(events);
         this.textBox.innerHTML = this.textSetter();
+        this.eventIndex = 0;
     }
 
     textSetter(textIndex) {
