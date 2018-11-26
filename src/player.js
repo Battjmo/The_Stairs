@@ -72,13 +72,10 @@ class Player {
     }
 
     movePlayer() {
-        for (let i = 0; i < this.game.level.events.length; i++) {
-            console.log(this.game.level.events[i]);
-            if ((this.game.level.events[i].size[0] <= this.playerX && this.playerX < this.game.level.events[i].size[0] + this.game.level.events[i].size[2]) &&
-                this.game.level.events[i].size[1] <= this.playerY && this.playerY < this.game.level.events[i].size[1] + this.game.level.events[i].size[3]) {
-                    this.triggerEvent(this.game.level.events[i]);
-                }
-        }
+        if ( this.game.level.event && (this.game.level.event.size[0] <= this.playerX && this.playerX < this.game.level.event.size[0] + this.game.level.event.size[2]) &&
+            this.game.level.event.size[1] <= this.playerY && this.playerY < this.game.level.event.size[1] + this.game.level.event.size[3]) {
+                this.triggerEvent(this.game.level.event);
+            }
         if (this.canMove) {
             if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
                 this.playerX -= this.playerSpeed;
@@ -109,10 +106,9 @@ class Player {
     }
 
     triggerEvent(event) {
-        console.log(this.game.level.eventIndex);
         if (this.game.level.eventIndex >= event.text.length) {
-            console.log("in here");
             this.canMove = true;
+            event.played = true;
             this.game.textBox.innerHTML = "They walked on.";
             return false;
         }

@@ -6,7 +6,7 @@ class Game {
     constructor(context, textBox) {
         this.context = context;
         this.textBox = textBox;
-        this.canvasHeight = 500;
+        this.canvasHeight = 600;
         this.canvasWidth = 900;
         this.player = new Player(this, "Nigel", this.events);
         this.level = new Level(this.context, 0, 0, this.textBox);

@@ -21,8 +21,7 @@ const Ending = {
         `*They reamin silent for a moment, starting over the edge*`,
         `So what do we do now? You got any food left?`,
         `Nah. You?`,
-        `Nah`,
-        ``
+        `Nah`
     ],
     size: [200, 200],
     played: false
