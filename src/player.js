@@ -73,6 +73,7 @@ class Player {
 
     movePlayer() {
         for (let i = 0; i < this.game.level.events.length; i++) {
+            console.log(this.game.level.events[i]);
             if ((this.game.level.events[i].size[0] <= this.playerX && this.playerX < this.game.level.events[i].size[0] + this.game.level.events[i].size[2]) &&
                 this.game.level.events[i].size[1] <= this.playerY && this.playerY < this.game.level.events[i].size[1] + this.game.level.events[i].size[3]) {
                     this.triggerEvent(this.game.level.events[i]);
