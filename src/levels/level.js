@@ -16,12 +16,7 @@ class Level {
         this.pathStart = [startX, startY, 100, 100];
         this.path = this.pathGenerator2();
         this.events = this.seedEvents(events);
-        this.textBox.innerHTML = this.textSetter();
-    }
-
-    textSetter(textIndex) {
-        if (Text[textIndex]) return Text[textIndex];
-        return "That's all the text so far.";
+        this.eventIndex = 0;
     }
 
     // freeform
@@ -140,7 +135,7 @@ class Level {
                     if (Util.randomNumber(0, 2) === 1) {
                         events[j].size.unshift(this.path[i][0], this.path[i][1]);
                         events[j].played = true;
-                        currentEvents.push([events[j]]);
+                        currentEvents.push(events[j]);
                     }
                 }
             }

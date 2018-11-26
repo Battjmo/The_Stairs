@@ -6,7 +6,6 @@ class Player {
         //context
         this.game = game;
         this.context = game.context;
-        this.textBox = game.textBox;
 
         //Self
         this.name = name;
@@ -15,6 +14,8 @@ class Player {
         this.playerX = 0;
         this.playerY = 0;
         this.playerSpeed = 10;
+
+        //events
         this.canMove = true;
 
         //Keys
@@ -50,6 +51,9 @@ class Player {
         if (e.keyCode === 40 || e.keyCode === 83) {
             this.playerMoveDown = true;
         }
+        if (e.keyCode === 32) {
+            this.game.level.eventIndex++;
+        }
     }
 
     keyUpHandler(e) {
@@ -69,23 +73,26 @@ class Player {
 
     movePlayer() {
         for (let i = 0; i < this.game.level.events.length; i++) {
-            if ((this.game.level.events[i][0] <= this.playerX && this.playerX < this.game.level.events[i][0] + this.game.level.events[i][2]) &&
-                this.game.level.events[i][1] <= this.playerY && this.playerY < this.game.level.events[i][1] + this.game.level.events[i][3]) {
-                    // this.triggerEvent(this.game.level.events[i]);
+            console.log(this.game.level.events[i]);
+            if ((this.game.level.events[i].size[0] <= this.playerX && this.playerX < this.game.level.events[i].size[0] + this.game.level.events[i].size[2]) &&
+                this.game.level.events[i].size[1] <= this.playerY && this.playerY < this.game.level.events[i].size[1] + this.game.level.events[i].size[3]) {
+                    this.triggerEvent(this.game.level.events[i]);
                 }
         }
-        if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
-            this.playerX -= this.playerSpeed;
+        if (this.canMove) {
+            if (this.playerMoveLeft && this.playerX > 0 && this.canMoveWest()) {
+                this.playerX -= this.playerSpeed;
+                }
+            else if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 && this.canMoveEast()) {
+                this.playerX += this.playerSpeed;
+                }
+            else if  (this.playerMoveUp && this.playerY > 0 && this.canMoveNorth()) {
+                this.playerY -= this.playerSpeed;
             }
-        else if (this.playerMoveRight && this.playerX < this.game.canvasWidth - 10 && this.canMoveEast()) {
-            this.playerX += this.playerSpeed;
+            else if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10 && this.canMoveSouth()) {
+                this.playerY += this.playerSpeed;
             }
-        else if  (this.playerMoveUp && this.playerY > 0 && this.canMoveNorth()) {
-            this.playerY -= this.playerSpeed;
-        }
-        else if (this.playerMoveDown && this.playerY < this.game.canvasHeight - 10 && this.canMoveSouth()) {
-            this.playerY += this.playerSpeed;
-        }
+        }   
     }
 
     moveCheck(groundColor) {
@@ -101,13 +108,17 @@ class Player {
         else return false;
     }
 
-    // triggerEvent(event) {
-    //     this.canMove = false;
-
-    //     for (let i = 0; i < event.text.length; i++) {
-    //         setInterval(function() {this.textBox.innerHTML = event.text[i];}, 5000);
-    //     }
-    // }
+    triggerEvent(event) {
+        console.log(this.game.level.eventIndex);
+        if (this.game.level.eventIndex >= event.text.length) {
+            console.log("in here");
+            this.canMove = true;
+            this.game.textBox.innerHTML = "They walked on.";
+            return false;
+        }
+        this.canMove = false;
+        this.game.textBox.innerHTML = event.text[this.game.level.eventIndex];
+    }
 
     canMoveEast() {
         if (this.checkBoundary("right", this.playerX + 10)) {
