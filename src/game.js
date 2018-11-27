@@ -21,7 +21,7 @@ class Game {
 
     draw() {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.context.fillStyle = 'blue';
+        this.context.fillStyle = "rgb(66,134,244)";
         this.context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.level.drawLevel2();
         this.player.movePlayer();

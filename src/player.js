@@ -93,7 +93,7 @@ class Player {
     }
 
     moveCheck(groundColor) {
-        if (groundColor !== "224,11,64") return false;
+        if (groundColor === '66,134,244') return false;
         return true;
     }
 
@@ -137,7 +137,8 @@ class Player {
             this.playerX = Math.ceil(this.playerX / 100) * 100;
             this.game.level = new Level(this.context, this.playerX, 0, this.textBox, this.events);
         }
-        let southMove = this.context.getImageData(this.playerX, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");        
+        let southMove = this.context.getImageData(this.playerX, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");
+        console.log(southMove);
         return this.moveCheck(southMove);
     }
 
