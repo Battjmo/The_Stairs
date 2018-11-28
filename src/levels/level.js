@@ -16,6 +16,14 @@ class Level {
         this.path = this.pathGenerator2();
         this.event = this.seedEvent(events);
         this.eventIndex = 0;
+        // this.smallPath = new Image(100,100);
+        // this.smallPath.src = '../assets/path_sprite.png';
+        // this.bigPath = new Image(200, 200);
+        // this.bigPath.src = '../assets/path_sprite_big_square.png';
+        // this.tallPath = new Image(100, 200);
+        // this.tallPath.src = '../assets/path_sprite_long.png';
+        // this.widePath = new Image(200, 100);
+        // this.widePath.src = '../assets/path_sprite_wide.png';
     }
 
     // PATH ALGOS USING PREMADE SHAPES AND EVENTS
@@ -23,8 +31,12 @@ class Level {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
             this.context.rect(this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);
-            this.context.fillStyle = "rgb(224, 11, 64)";
+            // this.context.fillStyle = "rgb(224, 11, 64)";
+            this.context.fillStyle = this.path[i][4];
             this.context.fill();
+            // if (Util.compareArrays(this.path[i], Shapes[0])) {
+            //     this.context.drawImage(this.smallPath, this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);            
+            // }
         } 
     }
 
@@ -33,6 +45,7 @@ class Level {
         while (path[path.length - 1][0] + 100 < this.xBound && path[path.length - 1][1] + 100 < this.yBound) {
             let currentShapes = this.shuffle(Shapes);
             let currentShape = this.validShape(path, currentShapes);
+            currentShape.push(Util.hue());
             path = path.slice();
             path.push(currentShape);
         }

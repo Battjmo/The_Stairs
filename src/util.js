@@ -4,6 +4,13 @@ const Util = {
         return Math.floor(Math.random() * (max - min)) + min;
     },
 
+    hue() {
+        //Now calls the randomColor script, used to used this function:
+        return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+        // var color = randomColor();
+        // return color;
+    },
+
     trim(str) {
     return str.replace(/^\s+|\s+$/gm, '');
     },
@@ -25,6 +32,13 @@ const Util = {
             [newStuff[i], newStuff[j]] = [newStuff[j], newStuff[i]];
         }
         return newStuff;
+    },
+
+    compareArrays(array1, array2) {
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i] !== array2[i]) return false;
+        }
+        return true;
     }
 
 };

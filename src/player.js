@@ -138,7 +138,6 @@ class Player {
             this.game.level = new Level(this.context, this.playerX, 0, this.textBox, this.events);
         }
         let southMove = this.context.getImageData(this.playerX, this.playerY + 10, 1, 1).data.slice(0, 3).join(",");
-        console.log(southMove);
         return this.moveCheck(southMove);
     }
 
