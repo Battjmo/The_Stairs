@@ -1,10 +1,12 @@
 import Util from '../util';
 import Events from '../events/eventList';
 import Shapes from './shapes';
+const fabric = require('fabric').fabric;
 
 class Level {
-    constructor(context, startX = 0, startY = 0, textBox, events = Events) {
+    constructor(canvas, context, startX = 0, startY = 0, textBox, events = Events) {
         this.context = context;
+        this.canvas = canvas;
         this.textBox = textBox;
         this.xBound = 900;
         this.yBound = 600;
@@ -13,31 +15,55 @@ class Level {
         this.pathY = this.pathSize;
         this.shuffle = Util.shuffle.bind(this);
         this.pathStart = [startX, startY, 100, 100];
+        this.drawLevel2 = this.drawLevel2.bind(this);
+        this.addimage = this.addimage.bind(this);
         this.path = this.pathGenerator2();
         this.event = this.seedEvent(events);
         this.eventIndex = 0;
+        this.smallpath = fabric.Image.fromURL('assets/path_sprite.png');
         // this.smallPath = new Image(100,100);
         // this.smallPath.src = '../assets/path_sprite.png';
-        // this.bigPath = new Image(200, 200);
+        this.bigPath = fabric.Image.fromURL('assets/path_sprite_big_square.png');
         // this.bigPath.src = '../assets/path_sprite_big_square.png';
-        // this.tallPath = new Image(100, 200);
+        this.tallPath = fabric.Image.fromURL('assets/path_sprite_long.png');
         // this.tallPath.src = '../assets/path_sprite_long.png';
-        // this.widePath = new Image(200, 100);
+        this.widePath = fabric.Image.fromURL('assets/path_sprite_wide.png');
         // this.widePath.src = '../assets/path_sprite_wide.png';
     }
 
     // PATH ALGOS USING PREMADE SHAPES AND EVENTS
     drawLevel2() {
-        this.context.beginPath();
-        for (let i = 0; i < this.path.length; i++) {
-            this.context.rect(this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);
+        const path = this.path;
+        var canvas = this.canvas;
+        for (let i = 0; i < path.length; i++) {
+            // this.context.rect(this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);
             // this.context.fillStyle = "rgb(224, 11, 64)";
-            this.context.fillStyle = this.path[i][4];
-            this.context.fill();
-            // if (Util.compareArrays(this.path[i], Shapes[0])) {
-            //     this.context.drawImage(this.smallPath, this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);            
-            // }
-        } 
+            // this.context.fillStyle = this.path[i][4];
+            // this.context.fill();
+            // this.context.closePath();
+            if (Util.compareArrays(path[i].slice(2), Shapes[0].slice(2))) {
+                fabric.Image.fromURL('assets/path_sprite.png', this.addimage(canvas, path[i][0], path[i][1]));
+                // this.context.drawImage(this.smallPath, this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);            
+            } else if (Util.compareArrays(path[i].slice(2), Shapes[1].slice(2))) {
+                fabric.Image.fromURL('assets/path_sprite_big_square.png', this.addimage(canvas, path[i][0], path[i][1]));
+            } else if (Util.compareArrays(path[i].slice(2), Shapes[2].slice(2))) {
+                fabric.Image.fromURL('assets/path_sprite_wide.png', this.addimage(canvas, path[i][0], path[i][1]));
+            } else if (Util.compareArrays(path[i].slice(2), Shapes[3].slice(2))) {
+                fabric.Image.fromURL('assets/path_sprite_long.png', this.addimage(canvas, path[i][0], path[i][1]));
+            } 
+        }
+        canvas.renderAll();
+        fabric.util.requestAnimFrame(this.drawLevel2);
+    }
+
+    addimage(canvas, left, top) {
+        return function(path) {
+            path.set({
+                left: left,
+                top: top
+            });
+            canvas.add(path);
+        };
     }
 
     pathGenerator2() {
@@ -45,10 +71,11 @@ class Level {
         while (path[path.length - 1][0] + 100 < this.xBound && path[path.length - 1][1] + 100 < this.yBound) {
             let currentShapes = this.shuffle(Shapes);
             let currentShape = this.validShape(path, currentShapes);
-            currentShape.push(Util.hue());
+            // currentShape.push(Util.hue());
             path = path.slice();
             path.push(currentShape);
         }
+        console.log(path);
         return path;
     }
 
