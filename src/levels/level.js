@@ -31,8 +31,8 @@ class Level {
         this.context.beginPath();
         for (let i = 0; i < this.path.length; i++) {
             this.context.rect(this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);
-            // this.context.fillStyle = "rgb(224, 11, 64)";
-            this.context.fillStyle = this.path[i][4];
+            this.context.fillStyle = "rgb(224, 11, 64)";
+            // this.context.fillStyle = this.path[i][4];
             this.context.fill();
             // if (Util.compareArrays(this.path[i], Shapes[0])) {
             //     this.context.drawImage(this.smallPath, this.path[i][0], this.path[i][1], this.path[i][2], this.path[i][3]);            
@@ -45,7 +45,6 @@ class Level {
         while (path[path.length - 1][0] + 100 < this.xBound && path[path.length - 1][1] + 100 < this.yBound) {
             let currentShapes = this.shuffle(Shapes);
             let currentShape = this.validShape(path, currentShapes);
-            currentShape.push(Util.hue());
             path = path.slice();
             path.push(currentShape);
         }
@@ -84,6 +83,15 @@ class Level {
             events[0].size.unshift(0, 0);
             return events[0];
             }
+        let playEnd = true;
+        for (let j = 0; j < events.length - 1; j++) {
+            if (events[j].played === false) {
+                playEnd = false;
+            }
+        }
+        if (playEnd === true) {
+            events = events.slice(3);
+        }
         for (let i = 0; i < this.path.length; i++) {
             for (let j = 0; j < events.length; j++) {
                 if (this.path[i][2] === events[j].size[0] && this.path[i][3] === events[j].size[1] && events[j].played === false) {

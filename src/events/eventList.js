@@ -15,7 +15,7 @@ const Welcome = {
 
 const Ending = {
     name: "Ending",
-    text: [`Well Nige, looks like we've nowhere else to go.`,
+    text: [`This thing never ends, does it Nige?`,
         `WHAT THE FUCK?!`,
         `What the single fuck indeed.`,
         `*They reamin silent for a moment, starting over the edge*`,
@@ -42,8 +42,10 @@ const Food = {
 
 const Dance = {
     name: "Dance",
-    text: [`Well Nige, looks like we've nowhere to go but up.`,
-        `Yeah, it's getting pretty damn warm down here. Let's rock`
+    text: [`We've nowhere to go but up.`,
+        `Well, or back down.`,
+        `It's quite hot down there, as you may recall.`,
+        `Yeah. Let's keep going I guess.`
     ],
     size: [200, 100],
     played: false
@@ -52,9 +54,9 @@ const Dance = {
 //array of all events
 const Events = [
     Welcome, 
-    Ending,
     Dance,
-    Food
+    Food,
+    Ending
 ];
 
 export default Events;
