@@ -1,8 +1,6 @@
 import Event from './event';
 import Game from '../game.js';
 
-
-
 //event objects
 const Welcome = {
     name: "Welcome",

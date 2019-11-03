@@ -4,14 +4,15 @@ import Events from './events/eventList';
 
 class Game {
     constructor(context, textBox) {
-        this.context = context;
-        this.textBox = textBox;
-        this.canvasHeight = 600;
-        this.canvasWidth = 900;
-        this.player = new Player(this, "Nigel", this.events);
-        this.level = new Level(this.context, 0, 0, this.textBox);
-        this.noScroll = this.noScroll.bind(this);
-        this.draw = this.draw.bind(this);
+        let game = this;
+        game.context = context;
+        game.textBox = textBox;
+        game.canvasHeight = 600;
+        game.canvasWidth = 900;
+        game.player = new Player(game, "Nigel", game.events);
+        game.level = new Level(game.context, 0, 0, game.textBox);
+        game.noScroll = game.noScroll.bind(game);
+        game.draw = game.draw.bind(game);
     }
 
     //THANKS DAVID WELLS (NOT THE FAMOUS YANKEE PRESUMABLY)
