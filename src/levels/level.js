@@ -91,9 +91,11 @@ class Level {
         }
         if (playEnd === true) {
             events = events.slice(3);
+            console.log(events);
         }
         for (let i = 0; i < this.path.length; i++) {
             for (let j = 0; j < events.length; j++) {
+                if (j === events.length - 1 && !playEnd) continue;
                 if (this.path[i][2] === events[j].size[0] && this.path[i][3] === events[j].size[1] && events[j].played === false) {
                     if (Util.randomNumber(0, 2) === 1) {
                         events[j].size.unshift(this.path[i][0], this.path[i][1]);
