@@ -91,7 +91,6 @@ class Level {
         }
         if (playEnd === true) {
             events = events.slice(3);
-            console.log(events);
         }
         for (let i = 0; i < this.path.length; i++) {
             for (let j = 0; j < events.length; j++) {
