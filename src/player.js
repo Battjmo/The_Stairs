@@ -27,7 +27,8 @@ class Player {
 
     drawPlayer() {
         this.context.beginPath();
-        this.context.rect(this.playerX, this.playerY, this.playerSize, this.playerSize);
+        this.context.rect(this.playerX, this.playerY, 
+            this.playerSize, this.playerSize);
         this.context.fillStyle = "#e1e1e1";
         this.context.fill();
     }
