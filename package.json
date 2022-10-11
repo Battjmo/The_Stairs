@@ -21,7 +21,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.4",
     "babel-preset-env": "^1.7.0",
-    "fabric": "^2.4.4",
+    "fabric": "^5.2.4",
     "webpack": "^4.20.2"
   }
 }
